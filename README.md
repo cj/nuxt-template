@@ -11,6 +11,7 @@ This is a project template for [vue-cli](https://github.com/vuejs/vue-cli).
 ``` bash
 $ vue init cj/nuxt-template my-project  
 $ cd my-project                     
+$ yarn
 ```
 
 > Make sure to use a version of vue-cli >= 2.1 (`vue -V`).
