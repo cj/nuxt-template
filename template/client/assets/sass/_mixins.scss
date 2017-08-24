@@ -1,0 +1,34 @@
+// retrieve color from map ie. `color(primary, base)`
+@function color($color-name, $color-variant:null) {
+  // color variant is optional
+  @if ($color-variant != null) {
+    // map inception
+    @return map-get(map-get($colors, $color-name), $color-variant);
+  } @else {
+    @return map-get($colors, $color-name);
+  }
+}
+
+@function layout($layout-name, $layout-variant:null) {
+  // layout variant is optional
+  @if ($layout-variant != null) {
+    // map inception
+    @return map-get(map-get($layout, $layout-name), $layout-variant);
+  } @else {
+    @return map-get($layout, $layout-name);
+  }
+}
+
+@function px($pixels, $context: layout(font-size)) {
+  @if (unitless($pixels)) {
+    /* stylelint-disable-next-line unit-whitelist */
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    /* stylelint-disable-next-line unit-whitelist */
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1em;
+}

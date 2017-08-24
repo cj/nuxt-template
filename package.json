@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "fs-extra": "^4.0.1",
+    "stylelint-config-recommended": "^1.0.0",
+    "yarn-install": "^0.5.1"
+  }
+}

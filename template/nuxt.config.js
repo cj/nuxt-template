@@ -1,38 +1,51 @@
-module.exports = {
-  /*
-  ** Headers of the page
-  */
+import * as modules from './client/modules'
+
+export default {
+  srcDir: 'client/',
+
+  modules: [...Object.values(modules)],
+
+  dotenv: {
+    envs: ['EXAMPLE_PUBLIC_ENV'],
+  },
+
   head: {
-    title: '{{ name }}',
+    title: 'nuxt-template',
+
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '{{ description }}' }
+      { hid: 'description', name: 'description', content: 'Nuxt.js project' },
     ],
+
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
   },
-  /*
-  ** Customize the progress-bar color
-  */
+
   loading: { color: '#3B8070' },
-  /*
-  ** Build configuration
-  */
+
+  // global css
+  css: ['normalize.css', '~/assets/sass/main.scss'],
+
+  // These will get added to every scss file, including .vue files
+  resources: [
+    'client/assets/sass/_variables.scss',
+    'client/assets/sass/_mixins.scss',
+  ],
+
   build: {
-    /*
-    ** Run ESLINT on save
-    */
-    extend (config, ctx) {
-      if (ctx.dev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
-  }
+    srcDir: 'client/',
+
+    babel: {
+      presets: ['vue-app'],
+      plugins: ['transform-class-properties'],
+    },
+
+    postcss: [
+      require('autoprefixer')({
+        browsers: ['> 5%'],
+      }),
+    ],
+  },
 }

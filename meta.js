@@ -1,9 +1,14 @@
+const { resolve } = require('path')
+const { copySync } = require('fs-extra')
+const yarnInstall = require('yarn-install')
+
 module.exports = {
   helpers: {
-    raw: function(options) {
+    raw (options) {
       return options.fn(this)
     }
   },
+
   prompts: {
     name: {
       'type': 'string',
@@ -21,5 +26,23 @@ module.exports = {
       'message': 'Author'
     },
   },
-  completeMessage: '{{#inPlace}}To get started:\n\n  npm install # Or yarn\n  npm run dev{{else}}To get started:\n\n  cd {{destDirName}}\n  npm install # Or yarn\n  npm run dev{{/inPlace}}'
+
+  completeMessage: '{{#inPlace}}To get started:\n\n yarn dev{{else}}To get started:\n\n  cd {{destDirName}}\n yarn dev{{/inPlace}}',
+
+  complete ({ inPlace, destDirName }) {
+    let path = resolve('./')
+
+    if (!inPlace) {
+      path = `${path}/${destDirName}`
+    }
+
+    copySync(`${path}/.env.example`, `${path}/.env`)
+
+    console.log('\n')
+
+    yarnInstall({ cwd: path })
+
+    console.log('\n')
+    console.log(`To get started: ${!inPlace ? `cd ${destDirName} &&` : ''} yarn dev`)
+  }
 };
