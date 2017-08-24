@@ -9,10 +9,8 @@ Live demo: https://starter.nuxtjs.org
 This is a project template for [vue-cli](https://github.com/vuejs/vue-cli).
 
 ``` bash
-$ vue init nuxt-community/starter-template my-project  
+$ vue init cj/nuxt-template my-project  
 $ cd my-project                     
-# install dependencies
-$ npm install # Or yarn install
 ```
 
 > Make sure to use a version of vue-cli >= 2.1 (`vue -V`).
@@ -23,7 +21,7 @@ $ npm install # Or yarn install
 
 ``` bash
 # serve with hot reloading at localhost:3000
-$ npm run dev
+$ yarn dev
 ```
 
 Go to [http://localhost:3000](http://localhost:3000)
@@ -32,13 +30,13 @@ Go to [http://localhost:3000](http://localhost:3000)
 
 ``` bash
 # build for production and launch the server
-$ npm run build
-$ npm start
+$ yarn build
+$ yarn start
 ```
 
 ### Generate
 
 ``` bash
 # generate a static project
-$ npm run generate
+$ yarn generate
 ```
