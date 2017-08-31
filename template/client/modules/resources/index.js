@@ -1,7 +1,7 @@
-import { resolve } from 'path'
+const { resolve } = require('path')
 
-export function resources (moduleOptions = []) {
-  const resources = [...this.options.resources, ...moduleOptions].map(resource => {
+module.exports = function () {
+  const resources = [...this.options.resources].map(resource => {
     return typeof resource === 'string' ? resolve(resource) : resource
   })
 
@@ -31,5 +31,3 @@ export function resources (moduleOptions = []) {
     })
   })
 }
-
-export default resources

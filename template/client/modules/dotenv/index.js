@@ -1,7 +1,7 @@
-import { resolve } from 'path'
-import { readFileSync, existsSync } from 'fs'
-import Dotenv from 'dotenv'
-import { DefinePlugin } from 'webpack'
+const { resolve } = require('path')
+const { readFileSync, existsSync } = require('fs')
+const Dotenv = require('../../../lib/dotenv')
+const { DefinePlugin } = require('webpack')
 
 const rootDir = resolve('./')
 
@@ -26,7 +26,7 @@ if (existsSync(envFile)) {
   }
 }
 
-export function dotenv (moduleOptions) {
+module.exports = function dotenv (moduleOptions) {
   const defaultOptions = { envs: [] }
   const options = Object.assign(defaultOptions, this.options.dotenv, moduleOptions)
 
@@ -34,5 +34,3 @@ export function dotenv (moduleOptions) {
     config.plugins.push(webpackProcessEnvs(options.envs))
   })
 }
-
-export default dotenv

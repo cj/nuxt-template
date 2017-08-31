@@ -1,6 +1,6 @@
-import StyleLintPlugin from 'stylelint-webpack-plugin'
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 
-export function lint (moduleOptions) {
+module.exports = function lint (moduleOptions) {
   this.extendBuild((config, ctx) => {
     if (ctx.dev && ctx.isClient) {
       config.module.rules.push({

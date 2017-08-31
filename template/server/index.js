@@ -1,42 +1,33 @@
-import express from 'express'
-import session from 'express-session'
-import { Nuxt, Builder } from 'nuxt'
+'use strict'
 
-const app = express()
-const host = process.env.HOST || '0.0.0.0'
-const port = process.env.PORT || 3000
+const fetch = require('node-fetch')
+const moduleAlias = require('module-alias')
+const { resolve } = require('path')
+const bodyParser = require('body-parser')
+const session = require('express-session')
 
-app.set('port', port)
+moduleAlias.addAlias('#', resolve('./'))
+moduleAlias.addAlias('~', resolve('./server'))
 
-// Import and Set Nuxt.js options
-let config = require('../nuxt.config.js').default
-config.dev = !(process.env.NODE_ENV === 'production')
+require('#/lib/dotenv')
 
-// Init Nuxt.js
-const nuxt = new Nuxt(config)
+global.fetch = fetch
 
-// Build only in dev mode
-if (config.dev) {
-  const builder = new Builder(nuxt)
-  builder.build()
-}
+const router = require('~/lib/router')()
 
-// Setup sessions
-app.use(session({
+// parse application/json
+router.use(bodyParser.json())
+// parse application/x-www-form-urlencoded
+router.use(bodyParser.urlencoded({ extended: false }))
+// session middleware
+router.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true },
+  saveUninitialized: false,
+  cookie: { maxAge: 60000, secure: true },
 }))
+// routes
+router.use(require('./routes'))
 
-// Give nuxt middleware to express
-app.use(nuxt.render)
-
-// Listen the server
-app.listen(port, host)
-
-console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
-
-process.on('unhandledRejection', (reason, p) => {
-  console.log('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason)
-})
+// Export the server middleware
+module.exports = router

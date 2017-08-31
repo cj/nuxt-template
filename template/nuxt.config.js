@@ -1,16 +1,26 @@
-import * as modules from './client/modules'
+'use strict'
 
-export default {
+const { join } = require('path')
+
+require('./lib/server-watcher')
+require('./lib/dotenv')
+
+module.exports = {
   srcDir: 'client/',
 
-  modules: [...Object.values(modules)],
+  modules: [
+    '~/modules/lint',
+    '~/modules/dotenv',
+    '~/modules/apollo',
+    '~/modules/resources',
+  ],
 
   dotenv: {
     envs: ['EXAMPLE_PUBLIC_ENV'],
   },
 
   head: {
-    title: 'nuxt-template',
+    title: 'a',
 
     meta: [
       { charset: 'utf-8' },
@@ -47,5 +57,19 @@ export default {
         browsers: ['> 5%'],
       }),
     ],
+
+    extend (config) {
+      config.resolve.alias = {...config.resolve.alias,
+        '#': join(this.options.rootDir),
+      }
+
+      return config
+    },
   },
+  /*
+  ** Add server middleware
+  ** Nuxt.js uses `connect` module as server
+  ** So most of express middleware works with nuxt.js server middleware
+  */
+  serverMiddleware: [ './server' ],
 }

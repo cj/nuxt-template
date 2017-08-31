@@ -16,5 +16,8 @@ npm-debug.log
 # Nuxt generate
 dist
 
+# Logs
+*.log
+
 # research
 RESEARCH.md

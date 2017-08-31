@@ -1,3 +1,6 @@
-export { dotenv } from './dotenv'
-export { resources } from './resources'
-export { lint } from './lint'
+module.exports = {
+  dotenv: require('./dotenv'),
+  resources: require('./resources'),
+  lint: require('./lint'),
+  apollo: require('./apollo'),
+}
