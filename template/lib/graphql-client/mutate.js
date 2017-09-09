@@ -1,6 +1,6 @@
 const _cloneDeep = require('lodash/cloneDeep')
 
-module.exports = async function mutate (mutation, { variables, client = 'default' }) {
+export default async function (mutation, { variables, client = 'default' }) {
   try {
     const response = await this.clients[client].mutate({
       mutation,
