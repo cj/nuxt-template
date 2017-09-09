@@ -1,10 +1,10 @@
-const { query } = require('./query')
-const { mutate } = require('./mutate')
-const { subscribe } = require('./subscribe')
-const { createClient } = require('./createClient')
-const { vuex } = require('./vuex')
+import  query from './query'
+import  mutate from './mutate'
+import  subscribe from './subscribe'
+import  createClient from './createClient'
+import  vuex from './vuex'
 
-module.exports = class GraphQLClient {
+export default class GraphQLClient {
   constructor (config) {
     this.config = config
     this.clients = Object.entries(config.clients).reduce((clients, [name, client]) => {

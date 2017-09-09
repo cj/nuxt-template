@@ -1,4 +1,4 @@
-module.exports = function subscribe (subscriptionQuery, { error, ...options }) {
+export default function (subscriptionQuery, { error, ...options }) {
   options.client = options.client || 'default'
 
   try {
@@ -28,5 +28,3 @@ module.exports = function subscribe (subscriptionQuery, { error, ...options }) {
     return null
   }
 }
-
-export default subscribe

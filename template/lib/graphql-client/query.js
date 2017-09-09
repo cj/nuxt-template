@@ -1,6 +1,6 @@
 const _cloneDeep = require('lodash/cloneDeep')
 
-module.exports = async function query (query, { variables, client = 'default' } = { variables: {} }) {
+export default async function (query, { variables, client = 'default' } = { variables: {} }) {
   try {
     const response = await this.clients[client].query({
       query: query,
@@ -26,5 +26,3 @@ module.exports = async function query (query, { variables, client = 'default' } 
     }
   }
 }
-
-export default query
